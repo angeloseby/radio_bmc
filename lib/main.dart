@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:radio_bmc/constants.dart';
+import 'package:provider/provider.dart';
+import 'package:radio_bmc/config/color_scheme.dart';
+import 'package:radio_bmc/utils/radio_provider.dart';
 
-import 'homepage.dart';
+import 'pages/homepage.dart';
 
 void main() {
-  runApp(const MyApp());
+  
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => PlayerProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -17,7 +25,7 @@ class MyApp extends StatelessWidget {
       title: 'Radio BMC',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: mainColor),
+        colorScheme: ColorScheme.fromSeed(seedColor: TColorScheme.mainColor),
         useMaterial3: true,
       ),
       home: const HomePage(),

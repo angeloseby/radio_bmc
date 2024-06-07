@@ -1,7 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:audioplayers/audioplayers.dart';
-import 'package:radio_bmc/constants.dart';
+import 'package:provider/provider.dart';
+import 'package:radio_bmc/config/color_scheme.dart';
+import 'package:radio_bmc/config/text_style_scheme.dart';
+import 'package:radio_bmc/utils/radio_provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,11 +12,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final player = AudioPlayer();
-  bool playerState = false;
-
   @override
   void initState() {
+    Provider.of<PlayerProvider>(context, listen: false).setUrl();
     super.initState();
   }
 
@@ -25,10 +24,10 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('RadioBMC'),
-        backgroundColor: mainColor,
+        backgroundColor: TColorScheme.mainColor,
         foregroundColor: Colors.white,
         centerTitle: true,
-        titleTextStyle: titleStyle,
+        titleTextStyle: TTextStyle.titleStyle,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -45,11 +44,11 @@ class _HomePageState extends State<HomePage> {
               alignment: Alignment.bottomCenter,
               children: [
                 Container(
-                  color: mainColor,
+                  color: TColorScheme.mainColor,
                   height: MediaQuery.of(context).size.height * 0.40,
                 ),
                 Container(
-                  color: subColor,
+                  color: TColorScheme.subColor,
                   height: MediaQuery.of(context).size.height * 0.02,
                 ),
                 Positioned(
@@ -61,7 +60,7 @@ class _HomePageState extends State<HomePage> {
                     height: MediaQuery.of(context).size.width * 0.4,
                     width: MediaQuery.of(context).size.width * 0.4,
                     decoration: BoxDecoration(
-                      color: mainColor,
+                      color: TColorScheme.mainColor,
                       shape: BoxShape.circle,
                     ),
                     child: Padding(
@@ -71,30 +70,24 @@ class _HomePageState extends State<HomePage> {
                           color: Colors.white,
                           shape: BoxShape.circle,
                         ),
-                        child: IconButton(
-                          onPressed: () async {
-                            if (playerState == false) {
-                              await player.play(
-                                UrlSource(
-                                    'http://97.74.94.190:17101/radiobmc.ogg'),
-                              );
-                              setState(() {
-                                playerState = true;
-                              });
-                            } else {
-                              await player.pause();
-                              setState(() {
-                                playerState = false;
-                              });
-                            }
+                        child: Consumer<PlayerProvider>(
+                          builder: (BuildContext context, PlayerProvider player,
+                              Widget? child) {
+                            return IconButton(
+                              onPressed: () {
+                                player.playing ? player.pause() : player.play();
+
+                                //implement play
+                              },
+                              icon: Icon(
+                                player.playing
+                                    ? Icons.pause_circle_rounded
+                                    : Icons.play_arrow_rounded,
+                                size: 70,
+                                color: TColorScheme.mainColor,
+                              ),
+                            );
                           },
-                          icon: Icon(
-                            playerState
-                                ? Icons.pause_circle_rounded
-                                : Icons.play_arrow_rounded,
-                            size: 70,
-                            color: mainColor,
-                          ),
                         ),
                       ),
                     ),
@@ -117,22 +110,26 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Text.rich(
                     textAlign: TextAlign.center,
-                      style: copyrightStyle,
-                      TextSpan(text: "Copyright © 2024 by ", children: [
+                    style: TTextStyle.copyrightStyle,
+                    TextSpan(
+                      text: "Copyright © 2024 by ",
+                      children: [
                         TextSpan(
                             text: "BMC",
-                            style: copyrightStyle.copyWith(
-                              color: mainColor,
+                            style: TTextStyle.copyrightStyle.copyWith(
+                              color: TColorScheme.mainColor,
                             )),
                         const TextSpan(text: ". All Rights Reserved."),
                         const TextSpan(text: "\nPowered by "),
                         TextSpan(
                           text: "Department of Computer Science AI & ML",
-                          style: copyrightStyle.copyWith(
-                            color: mainColor,
+                          style: TTextStyle.copyrightStyle.copyWith(
+                            color: TColorScheme.mainColor,
                           ),
                         ),
-                      ],),),
+                      ],
+                    ),
+                  ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.02,
                   ),

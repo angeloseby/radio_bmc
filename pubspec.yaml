@@ -32,10 +32,10 @@ dependencies:
     sdk: flutter
 
 
-  # Audio Player
-  audioplayers: ^5.2.1
   google_fonts: ^6.2.1
   flutter_native_splash: ^2.3.10
+  just_audio: ^0.9.38
+  provider: ^6.1.2
 
 flutter_native_splash:
   color: "#ffffff"
