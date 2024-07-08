@@ -44,8 +44,26 @@ class _HomePageState extends State<HomePage> {
               alignment: Alignment.bottomCenter,
               children: [
                 Container(
+                  padding: EdgeInsets.all(20.0),
                   color: TColorScheme.mainColor,
                   height: MediaQuery.of(context).size.height * 0.40,
+                  width: double.infinity,
+                  child: SingleChildScrollView(
+                    child: Text.rich(
+                      textAlign: TextAlign.center,
+                      TextSpan(
+                        text: "24x7 Live Stream\n",
+                        style: TTextStyle.headlineStyle,
+                        children: [
+                          TextSpan(
+                            text:
+                                "\nRadio BMC is yet another breakthrough of Bharata Mata College, which was conceptualised and curated to primarily support and promote the amateur student RJs, and has been a desirable space for emerging student.\n\n\n\n\n\n\n",
+                            style: TTextStyle.bodyStyle,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
                 Container(
                   color: TColorScheme.subColor,

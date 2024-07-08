@@ -1,4 +1,4 @@
-package com.example.radio_bmc
+package com.radiobmc.live
 
 import io.flutter.embedding.android.FlutterActivity
 

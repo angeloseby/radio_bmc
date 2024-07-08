@@ -4,7 +4,7 @@ import 'package:radio_bmc/config/color_scheme.dart';
 
 class TTextStyle {
   static TextStyle titleStyle = GoogleFonts.poppins(
-    fontSize: 26,
+    fontSize: 22,
     fontWeight: FontWeight.w500,
   );
 
@@ -12,5 +12,16 @@ class TTextStyle {
     fontSize: 12,
     fontWeight: FontWeight.w500,
     color: TColorScheme.subColor,
+  );
+
+  static TextStyle headlineStyle = GoogleFonts.poppins(
+    fontSize: 22,
+    fontWeight: FontWeight.w500,
+    color: Colors.yellow,
+  );
+
+  static TextStyle bodyStyle = GoogleFonts.poppins(
+    fontSize: 14,
+    color: Colors.white,
   );
 }
